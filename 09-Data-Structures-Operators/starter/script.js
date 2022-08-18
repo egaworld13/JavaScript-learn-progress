@@ -1,66 +1,155 @@
 'use strict';
+
 ////////////////////// STRINGS /////////////////////////
-'Bal';
-const airline = 'Air Baltic';
-const plane = 'A320';
-console.log(plane[0]); // and so on.
-console.log('B737'[0]);
-console.log('B737'.length);
-console.log(airline.length); // space is counted.
+//More Excercise with strings//
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+const formatStr = str => str.toUpperCase().slice(0, 3);
+for (const flight of flights.split('+')) {
+  const [action, from, to, time] = flight.split(';');
+  const output = `${
+    action.startsWith('_Delayed') ? '🛑' : ''
+  }${action.replaceAll('_', ' ')} from ${formatStr(from)} to ${formatStr(
+    to
+  )} (${time.replace(':', 'h')})`.padStart(48, ' ');
 
-console.log(airline.indexOf('i')); // Give index of first letter i
-console.log(airline.lastIndexOf('i')); //Give index of last letter i
+  console.log(output);
+  // const [first, second] = action.split('_');
+  // console.log(first);
+  // const delayed = action === 'Delayed' ? action.padStart(9, '🛑') : action;
+  // console.log(action);
+  // console.log(`${delayed}`);
+}
+// const message = 'Go to gate 23';
+// console.log(message.padStart(25, '+'));
+// console.log(' Edgars '.padStart(15, '$').padEnd(24, '$'));
 
-console.log(airline.slice(4)); // autput string from 5th letter. result is substring
-console.log(airline.slice(4, 7)); // lenght = 7-4; show 4,5,6 idexses;
-//First word
-console.log(airline.slice(0, airline.indexOf(' ')));
-//Last word
-console.log(airline.slice(airline.lastIndexOf(' ') + 1));
-// slice with negative index
-console.log(airline.slice(-2));
-console.log(airline.slice(1, -1));
-console.log(airline.slice(-2, 1));
+// const airline = 'Air Baltic';
+// const plane = 'A320';
+// console.log(plane[0]); // and so on.
+// console.log('B737'[0]);
+// console.log('B737'.length);
+// console.log(airline.length); // space is counted.
 
-const checkMiddleSeat = function (seat) {
-  //B and E are middle seats
-  const s = seat.slice(-1);
-  if (s === 'B' || s === 'E') {
-    console.log('You got middle seat');
-  } else console.log('You got luck');
-};
-checkMiddleSeat('11B');
-checkMiddleSeat('23C');
-checkMiddleSeat('3E');
-console.log(airline.toUpperCase());
-console.log('EDGARS'.toLowerCase());
+// console.log(airline.indexOf('i')); // Give index of first letter i
+// console.log(airline.lastIndexOf('i')); //Give index of last letter i
 
-//Fix capitalization in name
-const passenger = 'eDgARS';
-const passengerLower = passenger.toLowerCase(); //edgars
-console.log('LowerCase: ' + passengerLower);
-const passengerCorrect =
-  passengerLower[0].toUpperCase() + passengerLower.slice(1);
-console.log(passengerCorrect);
+// console.log(airline.slice(4)); // autput string from 5th letter. result is substring
+// console.log(airline.slice(4, 7)); // lenght = 7-4; show 4,5,6 idexses;
+// //First word
+// console.log(airline.slice(0, airline.indexOf(' ')));
+// //Last word
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+// // slice with negative index
+// console.log(airline.slice(-2));
+// console.log(airline.slice(1, -1));
+// console.log(airline.slice(-2, 1));
 
-// User input email!
-const email = 'ega@mail.com';
-const loginEmail = '   EgA@mail.com \n';
+// const checkMiddleSeat = function (seat) {
+//   //B and E are middle seats
+//   const s = seat.slice(-1);
+//   if (s === 'B' || s === 'E') {
+//     console.log('You got middle seat');
+//   } else console.log('You got luck');
+// };
+// checkMiddleSeat('11B');
+// checkMiddleSeat('23C');
+// checkMiddleSeat('3E');
+// console.log(airline.toUpperCase());
+// console.log('EDGARS'.toLowerCase());
 
-// const lowerEmail = loginEmail.toLowerCase();
-// const trimmedEmail = lowerEmail.trim();
-const normalizeEmail = loginEmail.toLowerCase().trim();
-console.log(normalizeEmail);
-console.log(email === normalizeEmail);
+// //Fix capitalization in name
+// const passenger = 'eDgARS';
+// const passengerLower = passenger.toLowerCase(); //edgars
+// console.log('LowerCase: ' + passengerLower);
+// const passengerCorrect =
+//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// console.log(passengerCorrect);
 
-// Replacing
-const priceGB = '288,97£';
-const priceUS = priceGB.replace('£', '$').replace(',', '.');
-console.log(priceUS);
-const announcement = `We are pleased to announce 
-that we’re expanding due to our remarkable growth and success over expanding the last five expanding years.`;
-// console.log(announcement.replace('expanding', 'working'));// replace first word
-console.log(announcement.replaceAll('expanding', 'working')); //replace all words
+// // User input email!
+// const email = 'ega@mail.com';
+// const loginEmail = '   EgA@mail.com \n';
+
+// // const lowerEmail = loginEmail.toLowerCase();
+// // const trimmedEmail = lowerEmail.trim();
+// const normalizeEmail = loginEmail.toLowerCase().trim();
+// console.log(normalizeEmail);
+// console.log(email === normalizeEmail);
+
+// // Replacing
+// const priceGB = '288,97£';
+// const priceUS = priceGB.replace('£', '$').replace(',', '.');
+// console.log(priceUS);
+// const announcement = `We are pleased to announce
+// that we’re expanding due to our remarkable growth and success over expanding the last five expanding years.`;
+// // console.log(announcement.replace('expanding', 'working'));// replace first word
+// // console.log(announcement.replaceAll('expanding', 'working')); //replace all words
+// //regular expression  /expanding/g - g is for global;
+// console.log(announcement.replace(/expanding/g, 'working'));
+
+// //Booleans :
+// const plane1 = 'A320neo';
+// console.log(plane1.includes('A320'));
+// console.log(plane1.startsWith('A'));
+// if (plane1.startsWith('A') && plane1.endsWith('neo')) console.log(plane1);
+
+// //Practice exercise
+// const checkBaggage = function (item) {
+//   const baggage = item.toLowerCase();
+//   if (baggage.includes('knife') || baggage.includes('gun')) {
+//     console.log('You cant enter');
+//   } else {
+//     console.log('You are allowed to enter');
+//   }
+// };
+// checkBaggage('I have a laptop, some Food and pocket Knife');
+// checkBaggage('Socks and camera');
+// checkBaggage('Got some snacks and a gun for protection');
+/////// SPLIT and JOIN - string method ///////
+
+// console.log('a+very+nice+string'.split('+'));
+// console.log('Edgars Roze'.split(' '));
+// const [firstName, lastName] = 'Edgars Roze'.split(' ');
+
+// const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+// console.log(newName);
+// const capitalizeName = function (name) {
+//   const names = name.split(' ');
+//   const upperCaseWords = [];
+//   for (const word of names) {
+//     // upperCaseWords.push(word[0].toUpperCase() + word.slice(1));
+//     upperCaseWords.push(word.replace(word[0], word[0].toUpperCase()));
+//   }
+//   console.log(upperCaseWords.join(' '));
+// };
+
+// capitalizeName('jessica ann smith davis');
+// capitalizeName('edgars roze');
+
+// /////Padding
+// const message = 'Go to gate 23';
+// console.log(message.padStart(25, '+'));
+// console.log(' Edgars '.padStart(15, '$').padEnd(24, '$'));
+
+// //Real word example
+// const maskCerditCard = function (number) {
+//   // const str = String(); OR
+//   const str = number + '';
+//   // const last = str.slice(-4);
+//   return last.padStart(last.length, '*');
+// };
+// console.log();
+// console.log(maskCerditCard(123123154575889));
+// console.log(maskCerditCard('90234935240303'));
+
+// //Repeat method
+// const message2 = 'Bad waether... All Departures Delayed ';
+// console.log(message2.repeat(5));
+
+// const planesInLine = function (n) {
+//   console.log(`Here is a ${n} planes in line ${'✈️'.repeat(n)}`);
+// };
+// planesInLine(5);
 
 // const weekDays1 = ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun'];
 
