@@ -48,108 +48,108 @@
 //Passing by reference - dont exist in JS/ only by value
 
 /////// Higher order function////
-const oneWord = function (str) {
-  return str.replace(/ /g, '').toLowerCase();
-};
-const upperFirstWord = function (str) {
-  const [first, ...others] = str.split(' ');
-  return [first.toUpperCase(), ...others].join(' ');
-};
-//This is higher order function / fn is call back function
-// const transformer = function (str, fn) {
-//   console.log(`Original string: ${str}`);
-//   console.log(`Transformed string: ${fn(str)}`);
-//   console.log(`Transformed by: ${fn.name}`); ///call function name
+// const oneWord = function (str) {
+//   return str.replace(/ /g, '').toLowerCase();
 // };
-// transformer('JavaScript is the best!', upperFirstWord);
-// transformer('JavaScript is the best!', oneWord);
-// //In JS callbacks are used all the time
-// const high5 = function () {
-//   console.log('👋');
+// const upperFirstWord = function (str) {
+//   const [first, ...others] = str.split(' ');
+//   return [first.toUpperCase(), ...others].join(' ');
 // };
-// document.body.addEventListener('click', high5);
-// ['Edgars', 'Ilona', 'Ernests', 'Elizabete'].forEach(high5);
+// //This is higher order function / fn is call back function
+// // const transformer = function (str, fn) {
+// //   console.log(`Original string: ${str}`);
+// //   console.log(`Transformed string: ${fn(str)}`);
+// //   console.log(`Transformed by: ${fn.name}`); ///call function name
+// // };
+// // transformer('JavaScript is the best!', upperFirstWord);
+// // transformer('JavaScript is the best!', oneWord);
+// // //In JS callbacks are used all the time
+// // const high5 = function () {
+// //   console.log('👋');
+// // };
+// // document.body.addEventListener('click', high5);
+// // ['Edgars', 'Ilona', 'Ernests', 'Elizabete'].forEach(high5);
 
-/// Return function that return new fucntion:
-// const greet = function (greeting) {
-//   return function (name) {
-//     console.log(`${greeting} ${name}`);
-//   };
+// /// Return function that return new fucntion:
+// // const greet = function (greeting) {
+// //   return function (name) {
+// //     console.log(`${greeting} ${name}`);
+// //   };
+// // };
+// ////Function return function
+
+// // const greeterHey = greet('Hi,');
+// // greeterHey('Edgars');
+
+// // greet('Hello')('Edgars');
+// /////////////arrow function example:
+// // const greet = greeting => {
+// //   return name => console.log(`${greeting} ${name}`);
+// // };
+// // const greet = greeting => name => console.log(`${greeting} ${name}`);
+// // const greeetingHey = greet('Čau');
+// // greeetingHey('Edgars');
+// // greet('Čau')('Ilona');
+
+// // This. keyword
+
+// const lufthansa = {
+//   airline: 'Lufhansa',
+//   iataCode: 'LH',
+//   bookings: [],
+//   //older version of using function in object:
+//   //book: function(){}
+//   //newer version:
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
+//     );
+//     this.bookings.push({ flight: `${this.iataCode} ${flightNum}`, name });
+//   },
 // };
-////Function return function
-
-// const greeterHey = greet('Hi,');
-// greeterHey('Edgars');
-
-// greet('Hello')('Edgars');
-/////////////arrow function example:
-// const greet = greeting => {
-//   return name => console.log(`${greeting} ${name}`);
+// lufthansa.book(10, 'Edgars');
+// lufthansa.book(99, 'Ilona');
+// console.log(lufthansa);
+// const eurowings = {
+//   airline: 'Euro Wings',
+//   iataCode: 'EW',
+//   bookings: [],
 // };
-// const greet = greeting => name => console.log(`${greeting} ${name}`);
-// const greeetingHey = greet('Čau');
-// greeetingHey('Edgars');
-// greet('Čau')('Ilona');
+// const book = lufthansa.book;
+// // Apply this keyword of function to eurowing obj.:
 
-// This. keyword
+// book.call(eurowings, 18, 'Igors');
+// console.log(eurowings);
 
-const lufthansa = {
-  airline: 'Lufhansa',
-  iataCode: 'LH',
-  bookings: [],
-  //older version of using function in object:
-  //book: function(){}
-  //newer version:
-  book(flightNum, name) {
-    console.log(
-      `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
-    );
-    this.bookings.push({ flight: `${this.iataCode} ${flightNum}`, name });
-  },
-};
-lufthansa.book(10, 'Edgars');
-lufthansa.book(99, 'Ilona');
-console.log(lufthansa);
-const eurowings = {
-  airline: 'Euro Wings',
-  iataCode: 'EW',
-  bookings: [],
-};
-const book = lufthansa.book;
-// Apply this keyword of function to eurowing obj.:
-
-book.call(eurowings, 18, 'Igors');
-console.log(eurowings);
-
-book.call(lufthansa, 2312, 'Anna Panna');
-/// Apply method
-const flightData = [583, 'Ernests Roze'];
+// book.call(lufthansa, 2312, 'Anna Panna');
+// /// Apply method
+// const flightData = [583, 'Ernests Roze'];
 ///Older version of use
 // book.apply(eurowings, flightData);
-/// Modern JS version of use (destructering array and add to eurowings boj.)
-book.call(eurowings, ...flightData);
-console.log(eurowings);
+/// Modern JS version of use (destructering array and add to eurowings obj.)
+// book.call(eurowings, ...flightData);
+// console.log(eurowings);
 
 /// Bind method (allow manualy set this keyword to function call )
 // its create new function.
-const bookEW = book.bind(eurowings);
-const bookLH = book.bind(lufthansa);
-bookEW(93, 'Elizabete Roze');
+// const bookEW = book.bind(eurowings);
+// const bookLH = book.bind(lufthansa);
+// bookEW(93, 'Elizabete Roze');
 // Its call partial application where where some arguments are set already.
-const bookEW23 = book.bind(eurowings, 23);
-bookEW23('Valērijs');
+// const bookEW23 = book.bind(eurowings, 23);
+// bookEW23('Valērijs');
 
 // Bind with Event listeners
 
-lufthansa.planes = 300;
-lufthansa.buyPlane = function () {
-  console.log(this);
-  this.planes++;
-  console.log(this.planes);
-};
-document
-  .querySelector('.buy')
-  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+// lufthansa.planes = 300;
+// lufthansa.buyPlane = function () {
+//   console.log(this);
+//   this.planes++;
+//   console.log(this.planes);
+// };
+// document
+//   .querySelector('.buy')
+//   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
 /// Partial application
 
@@ -169,6 +169,28 @@ document
 // const calcVAT = addTax(0.2);
 // calcVAT(200);
 //Arrow func example:
-const addTax = rate => value => console.log(value + value * rate);
-const addVAT = addTax(0.2);
-addVAT(200);
+// const addTax = rate => value => console.log(value + value * rate);
+// const addVAT = addTax(0.2);
+// addVAT(200);
+/// IIFE  -> Immediately Invoked Function Expressions
+/// Function that disappear after it used.
+
+const run0nce = function () {
+  console.log('This will never run again');
+};
+run0nce();
+// IIFE example
+(function () {
+  console.log('This will never run again');
+  const isPrivate = 23;
+})();
+// console.log(isPrivate); // is Private not accessible
+// same here: this one  use more in modern js
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+// console.log(isPrivate);
+console.log(notPrivate);
+// Arrow function example
+(() => console.log('This will also never run again'))();
