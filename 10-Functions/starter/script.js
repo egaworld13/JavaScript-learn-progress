@@ -175,22 +175,70 @@
 /// IIFE  -> Immediately Invoked Function Expressions
 /// Function that disappear after it used.
 
-const run0nce = function () {
-  console.log('This will never run again');
-};
-run0nce();
+// const run0nce = function () {
+//   console.log('This will never run again');
+// };
+// run0nce();
 // IIFE example
-(function () {
-  console.log('This will never run again');
-  const isPrivate = 23;
-})();
+// (function () {
+//   console.log('This will never run again');
+//   const isPrivate = 23;
+// })();
 // console.log(isPrivate); // is Private not accessible
 // same here: this one  use more in modern js
-{
-  const isPrivate = 23;
-  var notPrivate = 46;
-}
+// {
+//   const isPrivate = 23;
+//   var notPrivate = 46;
+// }
 // console.log(isPrivate);
-console.log(notPrivate);
-// Arrow function example
-(() => console.log('This will also never run again'))();
+// console.log(notPrivate);
+// // Arrow function example
+// (() => console.log('This will also never run again'))();
+
+///////// Closures //////////////
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+const booker = secureBooking();
+booker(); //1
+booker(); //2
+booker(); //3
+console.dir(booker); //can look on closure
+// 1st closure situation  :
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+const h = function () {
+  const b = 7;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+g();
+f(); // 46
+console.dir(f);
+// with h we Re-assign f function
+h();
+f(); // 14
+console.dir(f);
+
+// another closure example:
+const boardPassenger = function (n, wait) {
+  const perGroup = n / 3;
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 gorups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+const perGroup = 1000; // closure have priority of scope chain!
+
+boardPassenger(180, 3);
