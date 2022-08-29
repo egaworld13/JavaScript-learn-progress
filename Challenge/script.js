@@ -478,7 +478,15 @@ if(markBMI<johnBMI){
 // const data2 = [1, 5, 3, 9, 6, 1];
 // poll.displayResults.call({ answers: data });
 // poll.displayResults.call({ answers: data2 }, 'string');
+
+// #2 Coding Challenge (Functions)
+//Color is changed with help of closure.
 (function () {
   const header = document.querySelector('h1');
   header.style.color = 'red';
+  document.body.addEventListener(
+    'click',
+    () => console.log('Blue'),
+    (header.style.color = 'blue')
+  );
 })();
