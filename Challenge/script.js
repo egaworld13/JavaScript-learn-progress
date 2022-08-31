@@ -481,12 +481,42 @@ if(markBMI<johnBMI){
 
 // #2 Coding Challenge (Functions)
 //Color is changed with help of closure.
-(function () {
-  const header = document.querySelector('h1');
-  header.style.color = 'red';
-  document.body.addEventListener(
-    'click',
-    () => console.log('Blue'),
-    (header.style.color = 'blue')
-  );
-})();
+// (function () {
+//   const header = document.querySelector('h1');
+//   header.style.color = 'red';
+//   document.body.addEventListener(
+//     'click',
+//     () => console.log('Blue'),
+//     (header.style.color = 'blue')
+//   );
+// })();
+//#1 Coding Challenge (Working with arrays)
+const juliaData1 = [3, 5, 2, 12, 7];
+//shallow copy of julia data
+const shallowJuliaData1 = juliaData1.splice(1, 3);
+
+const kateData1 = [4, 1, 15, 8, 3];
+//2nd test
+const juliaData2 = [9, 16, 6, 8, 3];
+//shallow copy of julia data
+const shallowJuliaData2 = juliaData2.splice(1, 3);
+
+const kateData2 = [10, 5, 6, 1, 4];
+
+//Merge Julias and Kate data :
+const dogs1 = shallowJuliaData1.concat(kateData1);
+const dogs2 = shallowJuliaData2.concat(kateData2);
+// Function for checking dogs :
+const checkDogs = function (arr) {
+  arr.forEach(function (element, i) {
+    const age =
+      element >= 3
+        ? `is an adult, and ${element} years old`
+        : `is still a puppy 🐕`;
+    console.log(`Dog number ${i + 1} ${age}`);
+  });
+};
+
+checkDogs(dogs1);
+console.log(`########## 2nd test data ##########`);
+checkDogs(dogs2);
