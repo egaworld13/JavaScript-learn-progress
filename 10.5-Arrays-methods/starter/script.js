@@ -74,3 +74,70 @@
 // currenciesUnique.forEach(function (value, _, map) {
 //   console.log(`${value}:${value}`);
 // });
+// * MAP Method for arrays
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const eurToUsd = 1.1;
+//iterate trought movements arr and each element multiplie by 1.1
+// const movementsUsd = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
+// console.log(movements);
+// console.log(movementsUsd);
+//?arrow function example :
+// const movementsUsdArrow = movements.map(mov => mov * eurToUsd);
+// console.log(movementsUsdArrow);
+//* For of usage instead of MAP method
+// const movementsUsdfor = [];
+// for (const mov of movements) {
+//   movementsUsdfor.push(mov * eurToUsd);
+// }
+// console.log(movementsUsdfor);
+// const movementsDescription = movements.map(
+//   (mov, i) =>
+//     //? Shorter version:
+//     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+//       mov
+//     )}`
+
+// if (mov > 0) {
+//   return `Movement ${i + 1}: You deposited ${mov}`;
+// } else {
+//   return `Movement ${i + 1}: You withdrew ${Math.abs(mov)}`;
+// }
+// );
+// console.log(movementsDescription);
+
+//* FILTER Method
+//want to create arr with deposits
+// const deposits = movements.filter(mov => mov > 0);
+// console.log(deposits);
+//? for of loop
+// const depositsFor = [];
+// for (const mov of movements) {
+//   mov > 0 ? depositsFor.push(mov) : '';
+// }
+// console.log(depositsFor);
+//? small challenge
+// const withdrawals = movements.filter(mov => mov < 0);
+// console.log(withdrawals);
+//* REDUCE method
+// acc - summ of arr elements
+// const summary = movements.reduce(function (acc, value, i, arr) {
+//   return acc + value;
+// }, 0);
+// console.log(summary);
+//? Arrow func example:
+// const summArrow = movements.reduce((acc, value) => acc + value, 0); // <- total value count start point
+// console.log(summArrow);
+//? FOR of loop
+// let sumbalance = 0;
+// for (const mov of movements) {
+//   sumbalance += mov;
+// }
+// console.log(sumbalance);
+//? Maximum value
+const maxValue = movements.reduce(
+  (acc, mov) => (mov > acc ? (acc = mov) : acc),
+  0
+);
+console.log(maxValue);
