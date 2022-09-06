@@ -161,6 +161,20 @@ btnTransfer.addEventListener('click', function (e) {
     updateUI(currenAccount);
   }
 });
+//* Loan functionality
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (
+    amount > 0 &&
+    currenAccount.movements.some(move => move >= amount * 0.1)
+  ) {
+    currenAccount.movements.push(amount);
+  }
+  //Update UI
+  updateUI(currenAccount);
+  inputLoanAmount.value = '';
+});
 //* Close acc
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();

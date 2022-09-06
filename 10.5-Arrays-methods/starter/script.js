@@ -149,11 +149,11 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   .reduce((acc, mov) => acc + mov, 0);
 // console.log(totalDepositsInUsd);
 //* FIND METHOD => return only first element of true, not creating new array!
-const firstwithdrawal = movements.find(mov => mov < 0);
-console.log(movements);
-console.log(firstwithdrawal);
-//* Another find method example:
-// Data
+// const firstwithdrawal = movements.find(mov => mov < 0);
+// console.log(movements);
+// console.log(firstwithdrawal);
+// //* Another find method example:
+// // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -182,10 +182,49 @@ const account4 = {
   pin: 4444,
 };
 const accounts = [account1, account2, account3, account4];
-//* Find obj by owner name!
-const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
-//? FOR OF loop solution
-for (const acc of accounts) {
-  if (acc.owner === 'Sarah Smith') console.log(acc);
-}
+// //* Find obj by owner name!
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
+// //? FOR OF loop solution
+// for (const acc of accounts) {
+//   if (acc.owner === 'Sarah Smith') console.log(acc);
+// }
+//*INCLUDES methods
+//?  EQUALITIY includes example: if an array have that value
+// console.log(movements);
+// console.log(movements.includes('-1300')); //false
+// console.log(movements.includes(-130)); //true
+//* SOME method => ttrue/false
+//? CONDITION check if there are some with that condition
+// const anyDeposit = movements.some(mov => mov > 500);
+// console.log(anyDeposit);
+// //*EVERY method return true if all elements pass condition!
+// console.log(movements.every(mov => mov > 0)); //false
+// console.log(account4.movements.every(mov => mov > 0)); //true
+// //* Separate callback func.
+// const deposit = mov => mov > 0;
+// console.log(movements.some(deposit));
+// console.log(movements.every(deposit));
+// console.log(movements.filter(deposit));
+//*FLAT, FLATMAP
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat()); // connect all arry together (1lvl deeper only!)
+// const arrDeep = [[1, [2, 3]], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat());
+// console.log(arrDeep.flat(2)); //2=> how deep have to flat method work!
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+//? Use chaining
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+//*FLATMAP solution // Flatmap goes only 1 lvl deeper.
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
