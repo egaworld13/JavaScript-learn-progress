@@ -521,27 +521,37 @@ if(markBMI<johnBMI){
 // console.log(`########## 2nd test data ##########`);
 // checkDogs(dogs2);
 //#2 Coding Challenge (FILTER.MAP.REDUCE)
-const calcAvarageHumanAge = function (dogs) {
-  //*Calc humanage for dogs
-  const humanAge = dogs.map(dogAge =>
-    dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4
-  );
-  console.log(humanAge);
+// const calcAvarageHumanAge = function (dogs) {
+//   //*Calc humanage for dogs
+//   const humanAge = dogs.map(dogAge =>
+//     dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4
+//   );
+//   console.log(humanAge);
 
-  //*Exclude dogs that are less than 18 years old
-  const ageOver18 = humanAge.filter(dogAge => dogAge >= 18);
-  console.log(ageOver18);
+//   //*Exclude dogs that are less than 18 years old
+//   const ageOver18 = humanAge.filter(dogAge => dogAge >= 18);
+//   console.log(ageOver18);
 
-  //*Calc avg adult dog age
-  //? avg another solution 23.  (2+3)= 2.5 ===2/2+3/2=2.5
-  const avgAge = ageOver18.reduce(
-    (sum, dogAge, i, arr) => sum + dogAge / arr.length,
-    0
-  );
-  console.log(avgAge.toFixed(0));
-};
-calcAvarageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+//   //*Calc avg adult dog age
+//   //? avg another solution 23.  (2+3)= 2.5 ===2/2+3/2=2.5
+//   const avgAge = ageOver18.reduce(
+//     (sum, dogAge, i, arr) => sum + dogAge / arr.length,
+//     0
+//   );
+//   console.log(avgAge.toFixed(0));
+// };
+// calcAvarageHumanAge([5, 2, 4, 1, 15, 8, 3]);
 
-console.log('2nd TEST');
+// console.log('2nd TEST');
 
-calcAvarageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+// calcAvarageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+//#3 Coding Challenge (FILTER.MAP.REDUCE) => Arrow and Chaining usage!
+// const calcAvarageHumanAge = function (dogs) {
+//   const result = dogs
+//     .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+//     .filter(dogAge => dogAge >= 18)
+//     .reduce((acc, dogAge, i, arr) => acc + dogAge / arr.length, 0);
+//   console.log(result);
+// };
+// calcAvarageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// calcAvarageHumanAge([16, 6, 10, 5, 6, 1, 4]);
