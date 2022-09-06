@@ -73,30 +73,29 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 const calcAndDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance} €`;
 };
-const calcAndDisplaySummary = function (movements) {
-  const incomes = movements
+const calcAndDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
-  const out = movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov);
+  const out = acc.movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov);
   labelSumOut.textContent = `${Math.abs(out)}€`;
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
-      console.log(arr);
       return int > 1;
     })
     .reduce((acc, deposti) => acc + deposti, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcAndDisplaySummary(account1.movements);
 
 const createUserNames = function (accs) {
   accs.forEach(function (ele) {
@@ -109,4 +108,32 @@ const createUserNames = function (accs) {
 };
 createUserNames(accounts);
 
-calcAndDisplayBalance(account1.movements);
+//Event handler
+let currenAccount;
+btnLogin.addEventListener('click', function (e) {
+  //Prevent form from submiting
+  e.preventDefault();
+  currenAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currenAccount);
+  //* currentAccount will be compared if its exsist '?' <= optional chaining
+  if (currenAccount?.pin === Number(inputLoginPin.value)) {
+    //Display UI and message
+    labelWelcome.textContent = `Welcome back ${
+      currenAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    //clear input fields after login
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputClosePin.blur();
+
+    //Display movements
+    displayMovements(currenAccount.movements);
+
+    //Display balance
+    calcAndDisplayBalance(currenAccount.movements);
+    //Display summary
+    calcAndDisplaySummary(currenAccount);
+  }
+});
