@@ -136,8 +136,15 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // }
 // console.log(sumbalance);
 //? Maximum value
-const maxValue = movements.reduce(
-  (acc, mov) => (mov > acc ? (acc = mov) : acc),
-  0
-);
-console.log(maxValue);
+// const maxValue = movements.reduce(
+//   (acc, mov) => (mov > acc ? (acc = mov) : acc),
+//   0
+// );
+// console.log(maxValue);
+// * CHAINING METHOD =>filter+map+reduce in one line:)
+// const eurToUsd = 1.1;
+// const totalDepositsInUsd = movements
+//   .filter(move => move > 0)
+//   .map(mov => mov * eurToUsd)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalDepositsInUsd);
