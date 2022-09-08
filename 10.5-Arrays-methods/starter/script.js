@@ -218,13 +218,35 @@ const accounts = [account1, account2, account3, account4];
 // console.log(allMovements);
 // const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
 //? Use chaining
-const overallBalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance);
-//*FLATMAP solution // Flatmap goes only 1 lvl deeper.
-const overallBalance2 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overallBalance);
+// const overallBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance);
+// //*FLATMAP solution // Flatmap goes only 1 lvl deeper.
+// const overallBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance);
+//* JS built in sort methods / by default its sort strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); // sort in alphabetic  sequence
+console.log(owners); // Its mutate original string
+console.log(movements);
+// console.log(movements.sort());/ not work with numbers
+//? retunr <0 A,B(keep order)
+//? return >0 B,A (switch order)
+//* Ascending
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+movements.sort((a, b) => a - b);
+console.log(movements);
+//*Descending
+movements.sort((a, b) => b - a);
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+console.log(movements);
