@@ -229,24 +229,52 @@ const accounts = [account1, account2, account3, account4];
 //   .reduce((acc, mov) => acc + mov, 0);
 // console.log(overallBalance);
 //* JS built in sort methods / by default its sort strings
-const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
-console.log(owners.sort()); // sort in alphabetic  sequence
-console.log(owners); // Its mutate original string
-console.log(movements);
-// console.log(movements.sort());/ not work with numbers
-//? retunr <0 A,B(keep order)
-//? return >0 B,A (switch order)
-//* Ascending
-// movements.sort((a, b) => {
-//   if (a > b) return 1;
-//   if (a < b) return -1;
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort()); // sort in alphabetic  sequence
+// console.log(owners); // Its mutate original string
+// console.log(movements);
+// // console.log(movements.sort());/ not work with numbers
+// //? retunr <0 A,B(keep order)
+// //? return >0 B,A (switch order)
+// //* Ascending
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (a < b) return -1;
+// // });
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+// //*Descending
+// movements.sort((a, b) => b - a);
+// // movements.sort((a, b) => {
+// //   if (a > b) return -1;
+// //   if (a < b) return 1;
+// // });
+// console.log(movements);
+//* Creating and filling arrays
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+// //Create array with 7 empty slots
+// const x = new Array(7);
+// console.log(x);
+// //* FILL method
+// // x.fill(1); //mutate original arr
+// // x.fill(1, 3); // start from index 3
+// x.fill(1, 3, 5); // start from index 3 end at 5(include);
+// console.log(x);
+
+// arr.fill(23, 2, 6);
+// console.log(arr);
+
+// //*Array.from
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
+// //* REAL usecase with arrays.from ( in banksit app)
+
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value')
+//   );
+
+//   console.log(movementsUI.map(el => el.textContent.replace('€', '')));
 // });
-movements.sort((a, b) => a - b);
-console.log(movements);
-//*Descending
-movements.sort((a, b) => b - a);
-// movements.sort((a, b) => {
-//   if (a > b) return -1;
-//   if (a < b) return 1;
-// });
-console.log(movements);

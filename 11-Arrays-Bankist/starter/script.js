@@ -198,9 +198,13 @@ btnClose.addEventListener('click', function (e) {
   }
   inputClosePin.value = inputCloseUsername.value = '';
 });
+//For sorting
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
   displayMovements(currenAccount.movements, !sorted);
+  //For sorting
   sorted = !sorted;
 });
+
+
