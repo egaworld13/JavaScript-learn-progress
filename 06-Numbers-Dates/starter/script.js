@@ -251,3 +251,94 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+//* CONVERT ADN CHECK NUMBERS
+// console.log(23 === 23.0);
+// //? base 10 - ( 0 to 9 )
+// //? Binary base 2 - 01
+// console.log(0.1 + 0.2); //0.30000000000000004
+// console.log(0.1 + 0.2 === 0.3); //False
+
+// console.log(Number('23'));
+// console.log(+'23'); // Same as line above
+// //Parsing =>syntax analysis
+// console.log(Number.parseInt('30px', 10)); //number 30 => str need to start with number
+// console.log(Number.parseInt('e23', 10)); //NaN
+// console.log(Number.parseInt('2.5rem  ')); //2
+// console.log(Number.parseFloat('  2.5rem')); //2.5
+// //Check if value is NaN
+// console.log(Number.isNaN(20)); //false
+// console.log(Number.isNaN('20')); //false
+// console.log(Number.isNaN(+'20X')); //false
+// console.log(Number.isNaN(20 / 0)); //false
+// //* Best solution for checking if value is number
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20X'));
+// console.log(Number.isNaN(20 / 0));
+// console.log(Number.isInteger(23)); //True
+// console.log(Number.isInteger(23.0)); //True
+// console.log(Number.isInteger(23 / 0)); //False
+
+//* Math and Rounding
+//square root
+// console.log(Math.sqrt(9));
+// console.log(9 ** (1 / 2));
+// console.log(8 ** (1 / 3)); // 2 pakāpe3 =8
+// console.log(2 ** 3);
+// //exponentiation operator(pakāpe)
+// console.log(2 ** 4);
+
+// //Max value
+// console.log(Math.max(1, 2, 3, 4, 5, 10)); //10
+// console.log(Math.max(1, 2, 3, 4, 5, '10')); //10
+// console.log(Math.max(1, 2, 3, 4, 5, '10px')); //not parsing..
+// //Min
+// console.log(Math.min(1, 2, 3, 4, 5));
+// //Calc are of circle
+// console.log(Math.PI * Number.parseFloat('10px') ** 2); //Calc cicrle area with radius 10px
+
+// //Rand num
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + 1);
+// // 0..1->0...(max-min)->min...max
+// randomInt(5, 10);
+// //* Rounding intigers
+// console.log(Math.trunc(10.83)); //10
+
+// console.log(Math.round(23.3)); //23
+// console.log(Math.round(23.9)); //24
+
+// console.log(Math.ceil(23.3)); //24
+// console.log(Math.ceil(23.9)); //24
+
+// console.log(Math.floor(23.3)); //23
+// console.log(Math.floor('23.9')); //23
+// // Negative number
+// console.log(Math.trunc(-10.83)); //10 look in same direction as with+
+// console.log(Math.floor(-10.83)); //11 look in right direction
+
+// //Rounding decimals
+// console.log((2.7).toFixed(0)); //tofixed return string.
+// console.log(+(2.345).toFixed(2)); // + return intiger
+//*Remainder operator
+// console.log(5 % 2); // remains 1 / 5=2*2+1
+// const isEven = n => n % 2 === 0;
+// console.log(isEven(8));
+// console.log(isEven(5));
+// console.log(isEven(7));
+// console.log(isEven(6));
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'grey';
+//     if (i % 3 === 0) row.style.backgroundColor = 'yellow';
+//   });
+// });
+//*Numeric seperators '_'
+// const diameter = 287_460_000_000;
+// console.log(diameter);
+// const price = 345_99;
+// console.log(price);
+// const PI = 3.14_15;
+// console.log(PI);
+// console.log(Number('23_000')); //NaN
