@@ -21,9 +21,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2022-09-11T17:01:17.194Z',
+    '2020-09-13T23:36:17.929Z',
+    '2022-09-12T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -43,7 +43,7 @@ const account2 = {
     '2020-02-05T16:33:06.386Z',
     '2020-04-10T14:43:26.374Z',
     '2020-06-25T18:49:59.371Z',
-    '2020-07-26T12:01:20.894Z',
+    '2022-09-13T12:01:20.894Z',
   ],
   currency: 'USD',
   locale: 'en-US',
@@ -80,20 +80,39 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+const formatMovementDate = function (date, locale) {
+  const daysInterval = (date1, date2) =>
+    Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
+  const daysPassed = daysInterval(new Date(), date);
 
-const displayMovements = function (movements, sort = false) {
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}`;
+  return new Intl.DateTimeFormat(locale).format(date);
+};
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-
+    //DATE
+    const date = new Date(acc.movementsDates[i]);
+    const displyDate = formatMovementDate(date, acc.locale);
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+      <div class="movements__date">${displyDate}</div>
         <div class="movements__value">${mov}€</div>
       </div>
     `;
@@ -142,7 +161,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +173,18 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+//* INTERNATIALIZATION
+//? Experimenting API
+// const now = new Date();
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'numeric', // long - for name / 2-digit
+//   year: 'numeric', //2-digit
+//   weekday: 'long',
+// };
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -177,6 +208,11 @@ btnLogin.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+    console.log(currentAccount.locale);
   }
 });
 
@@ -197,6 +233,9 @@ btnTransfer.addEventListener('click', function (e) {
     // Doing the transfer
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
+    // Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
@@ -211,7 +250,8 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
-
+    // Add loan date
+    currentAccount.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
   }
@@ -244,7 +284,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
@@ -342,3 +382,88 @@ btnSort.addEventListener('click', function (e) {
 // const PI = 3.14_15;
 // console.log(PI);
 // console.log(Number('23_000')); //NaN
+//* PRIMITIVE DATA TYPE => BIGINT
+// console.log(2 ** 53 - 1); // bigest number which can be represented in JS
+// console.log(Number.MAX_SAFE_INTEGER); // same as previous
+// //some result are correct and some doesn't
+// console.log(2 ** 53 + 1);
+// console.log(2 ** 53 + 2);
+// console.log(2 ** 53 + 3);
+// console.log(2 ** 53 + 4);
+// //*BigInt
+// console.log(168451683152556645646168464464); //error number
+// console.log(168451683152556645646168464464n); //show correct
+// console.log(BigInt(15464684686868325354844546156));
+// console.log(10000n + 10000n);
+// console.log(214231589275014501759304810803475813n * 100000n);
+// const huge = 213123194314097109534053n;
+// const num = 23;
+// console.log(huge * BigInt(num));
+// console.log(20n > 15);
+// console.log(20n === 20); //false
+// console.log(20n == 20); //true
+// console.log(huge + 'is realy big');
+//?Division
+// console.log(11n / 3n); //3
+// console.log(10 / 3); //3.333333333;
+//*CREATING DATES
+// const now = new Date();
+// console.log(now);
+// console.log(new Date('Sep 13 2022 10:41:17'));
+// console.log(new Date('December 24, 2015'));
+// console.log(new Date(account1.movementsDates[0]));
+// console.log(new Date(2037, 10, 19, 15, 23, 5)); //y/m/d/h/m/s //month count from 0 so 10-november instead of 11
+
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000)); //day/hour/min/sec/milisec
+
+//working with dates
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(future);
+// console.log(future.getFullYear()); //2037
+// console.log(future.getMonth()); //10
+// console.log(future.getDate()); //19
+// console.log(future.getDay()); //4
+// console.log(future.getHours()); //15
+// console.log(future.getMinutes()); //23
+// console.log(future.getSeconds()); //0
+// console.log(future.toISOString()); //2037-11-19T13:23:00.000Z
+// console.log(future.getTime()); //2142249780000 miliseconds from 1970 1 Jan
+
+// console.log(new Date(2142249780000));
+
+// console.log(Date.now());
+// console.log(new Date(1663056004632));
+//* FAKE ALWAYS LOGGED IN
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
+
+const now = new Date();
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'numeric', // long - for name / 2-digit
+  year: 'numeric', //2-digit
+  // weekday: 'long',
+};
+// const locale = navigator.language;
+// console.log(currentAccount.locale);
+
+// const now = new Date();
+// const day = `${now.getDate()}`.padStart(2, 0);
+// const month = `${now.getMonth() + 1}`.padStart(2, 0);
+// const year = now.getFullYear();
+// const hour = `${now.getHours()}`.padStart(2, 0);
+// const min = `${now.getMinutes()}`.padStart(2, 0);
+// labelDate.textContent = `${day}/${month}/${year} ${hour}:${min}`;
+//* OPERATIONS WITH DATES
+// const future = new Date(2037, 10, 19, 15, 23, 5);
+// console.log(Number(future)); //miliseconds
+// console.log(+future); //miliseconds
+
+// const daysInterval = (date1, date2) =>
+//   Math.abs(date1 - date2) / (1000 * 60 * 60 * 24); // converting to days -> miliseconds to-> sec,min,h,d
+// const days1 = daysInterval(new Date(2022, 9, 13), new Date(2021, 5, 2)); // cant write 03 or 09 in month
+// console.log(days1);
