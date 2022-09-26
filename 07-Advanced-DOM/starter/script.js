@@ -50,25 +50,68 @@ document.addEventListener('keydown', function (e) {
 // console.log(document.getElementsByClassName('btn'));
 //?CREATING AND INSERTING ELEMENTS
 // .insertAdjacentHTML
-const message = document.createElement('div'); // At this point its not in DOM yet!
-//Add class to div element.
-message.classList.add('cooking-message');
-// Add text to div element
-// message.textContent = 'We use cookies for Fun! :)';
-message.innerHTML =
-  'We use cookies for Fun! :) <button class="btn btn--close-cookie">Got it</button>';
-const header = document.querySelector('.header');
-//? works only 1 message
-header.prepend(message); //Add as first child to header element
-header.append(message);
-// header.append(message.cloneNode(true));// shows all messages!
+// const message = document.createElement('div'); // At this point its not in DOM yet!
+// //Add class to div element.
+// message.classList.add('cookie-message');
+// // Add text to div element
+// // message.textContent = 'We use cookies for Fun! :)';
+// message.innerHTML =
+//   'We use cookies for Fun! :) <button class="btn btn--close-cookie">Got it</button>';
+// const header = document.querySelector('.header');
+// //? works only 1 message
+// // header.prepend(message); //Add as first child to header element
+// // header.append(message);
+// // header.append(message.cloneNode(true));// shows all messages!
 
-header.before(message); // add as sibling
-header.after(message); // add as sibling
+// // header.before(message); // add as sibling
+// header.after(message); // add as sibling
 
-//*DELETE ELEMENTS
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
+// //*DELETE ELEMENTS
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
+// //*STYLES, ATRIBUTES AND CLASSES
+// //? Styles
+// // this styles are setup as inline.
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
+
+// console.log(message.style.color); // show only inline property
+// console.log(message.style.backgroundColor); //show only inline property
+
+// console.log(getComputedStyle(message).color); // get color properties for message lement
+// console.log(getComputedStyle(message).height); // get height even its not setup in css.
+// // convert height from string to number
+// message.style.height =
+//   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px'; // 10 is representing base 10 numbers
+// //Change css property in root .
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
+// //?Atributes (element src alt class id  etc...)
+// const logo = document.querySelector('.nav__logo');
+
+// console.log(logo.alt);
+// //show full link
+// console.log(logo.src);
+// //show short link.
+// console.log(logo.getAttribute('src'));
+// console.log(logo.className);
+// //None-standart. show undefined
+// console.log(logo.designer);
+// //none-standartatribute will shown in this way!
+// console.log(logo.getAttribute('designer'));
+// //add atribute to logo.
+// logo.setAttribute('company', 'Bankist');
+// //FOR anchor links
+// const link = document.querySelector('.nav__link--btn');
+// console.log(link.href);
+// console.log(link.getAttribute('href'));
+
+// //?Data attributes
+// console.log(logo.dataset.versionNumber);
+// //?Classes
+// logo.classList.add('c'); // can add more than 1 class
+// logo.classList.remove('c'); // can add more than 1 class
+// logo.classList.toggle('c'); // can add more than 1 class
+// logo.classList.contains('c'); // not includes
