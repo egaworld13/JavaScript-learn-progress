@@ -32,6 +32,73 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+//* COOKIE MESSAGE
+const header = document.querySelector('.header');
+const message = document.createElement('div');
+//Add style to div element
+message.classList.add('cookie-message');
+//Add element after header with message
+message.innerHTML =
+  'We use cookies for Fun! :) <button class="btn btn--close-cookie">Got it</button>';
+header.after(message);
+//Add inline style
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+//Add event listener to remove element on click!
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', function () {
+    message.remove();
+  });
+//* SCROLLING FUNCTIONALITY
+const section1 = document.querySelector('#section--1');
+//btn select
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+//Function
+btnScrollTo.addEventListener('click', function () {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+////*LECTURES
+//*SMOOTHLY SCROLL
+//? Old method
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.querySelector('#section--1');
+// btnScrollTo.addEventListener('click', function (e) {
+//   //Show section 1 cordinates.
+//   const s1coords = section1.getBoundingClientRect();
+//   console.log(s1coords);
+//   //show learn more btn cordinates
+//   console.log(e.target.getBoundingClientRect());
+//   //page position  on btn click moment
+//   console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+//   console.log(
+//     'height/width viewport',
+//     document.documentElement.clientHeight,
+//     document.documentElement.clientWidth
+//   );
+//?SCROLLING
+// window.scrollTo(
+//   s1coords.left + window.pageXOffset,
+//   s1coords.top + window.pageYOffset
+// );
+//? SMOOTH SCROLL
+// window.scrollTo({
+//   left: s1coords.left + window.pageXOffset,
+//   top: s1coords.top + window.pageYOffset,
+//   behavior: 'smooth',
+// });
+// });
+//* MODERN WAY OF SCROLLING SMOOTHLY
+//section select
+// const section1 = document.querySelector('#section--1');
+// //btn select
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// //Function
+// btnScrollTo.addEventListener('click', function () {
+//   section1.scrollIntoView({ behavior: 'smooth' });
+// });
+
 //*Select , Create, Delete Element
 //? SELECT ELEMENTS
 //? Dont need to use selector for:
@@ -115,3 +182,19 @@ document.addEventListener('keydown', function (e) {
 // logo.classList.remove('c'); // can add more than 1 class
 // logo.classList.toggle('c'); // can add more than 1 class
 // logo.classList.contains('c'); // not includes
+//*TYPES OF EVENTS AND EVENT HANDLERS.
+//e for event
+//Modern way/ can add multiple functions
+//? pattern for using listener once.
+const alertH1 = function (e) {
+  alert('You are reding heading');
+  // h1.removeEventListener('mouseenter', alertH1);
+};
+const h1 = document.querySelector('h1');
+h1.addEventListener('mouseenter', alertH1);
+//?Can set time when event is removed.
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+//OLD ver.
+// h1.onmouseenter = function (e) {
+//   alert('You are reding heading');
+// };
