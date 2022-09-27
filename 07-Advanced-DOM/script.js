@@ -129,6 +129,18 @@ const nav = document.querySelector('.nav');
 //Passing 'arguments' into handler
 nav.addEventListener('mouseover', navOpacity.bind(0.5));
 nav.addEventListener('mouseout', navOpacity.bind(1));
+//*STICKY NAV BAR
+//Scroll event
+//? not good solution
+const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+window.addEventListener('scroll', function (e) {
+  //?Getting scroll position
+  // console.log(window.scrollY);
+  if (window.scrollY > initialCoords.top) {
+    nav.classList.add('sticky');
+  } else nav.classList.remove('sticky');
+});
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
