@@ -101,6 +101,34 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//* MENU FADE ANIMATION
+//handler func can take only 1 argument. for more use this keyword
+const navOpacity = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+      logo.style.opacity = this;
+    });
+  }
+};
+const nav = document.querySelector('.nav');
+//mouseenter not bubble.
+//Set opacity 0.5
+// nav.addEventListener('mouseover', function (e) {
+//   navOpacity(e, 0.5);
+// });
+// //Set opacity 1
+// nav.addEventListener('mouseout', function (e) {
+//   navOpacity(e, 1);
+// });
+//?Better solution
+//Passing 'arguments' into handler
+nav.addEventListener('mouseover', navOpacity.bind(0.5));
+nav.addEventListener('mouseout', navOpacity.bind(1));
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
