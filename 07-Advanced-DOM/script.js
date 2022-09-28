@@ -127,20 +127,38 @@ const nav = document.querySelector('.nav');
 // });
 //?Better solution
 //Passing 'arguments' into handler
-nav.addEventListener('mouseover', navOpacity.bind(0.5));
-nav.addEventListener('mouseout', navOpacity.bind(1));
-//*STICKY NAV BAR
-//Scroll event
-//? not good solution
-const initialCoords = section1.getBoundingClientRect();
-// console.log(initialCoords);
-window.addEventListener('scroll', function (e) {
-  //?Getting scroll position
-  // console.log(window.scrollY);
-  if (window.scrollY > initialCoords.top) {
-    nav.classList.add('sticky');
-  } else nav.classList.remove('sticky');
+// nav.addEventListener('mouseover', navOpacity.bind(0.5));
+// nav.addEventListener('mouseout', navOpacity.bind(1));
+// //*STICKY NAV BAR
+// //Scroll event
+// //? not good solution
+// const initialCoords = section1.getBoundingClientRect();
+// // console.log(initialCoords);
+// window.addEventListener('scroll', function (e) {
+//   //?Getting scroll position
+//   // console.log(window.scrollY);
+//   if (window.scrollY > initialCoords.top) {
+//     nav.classList.add('sticky');
+//   } else nav.classList.remove('sticky');
+// });
+
+//* STICKY NAVIGATION :INTERSECTION OBSERVER API (novērotājs)
+const navHeight = nav.getBoundingClientRect().height;
+// console.log(navHeight);
+const stickyNav = function (entries) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  // create box, -90px height. so navbar appers exactly 90px befor threshold.
+  //this opt allow to navbar appear not in target element but 90px befor it.
+  rootMargin: `-${navHeight}px`,
 });
+headerObserver.observe(header);
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
@@ -335,3 +353,17 @@ window.addEventListener('scroll', function (e) {
 // [...h1.parentElement.children].forEach(function (el) {
 //   if (el !== h1) el.style.transform = 'scale(0.5)';
 // });
+//* INTERSECTION OBSERVER API (novērotājs)
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry => console.log(entry));
+// };
+// const obsOptions = {
+//   //root:null; - if null - bounds(robežas) of the actual document viewport are used.
+//   root: null,
+//   // threshold - slieksnis, robežvērtība.
+//   //0.1 = 10% of viewport .
+//   threshold: [0, 0.2],
+// };
+// //this func is activated when reach threshold propertie(0.1=10%) top and bot of viewport!is its root=null.
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
