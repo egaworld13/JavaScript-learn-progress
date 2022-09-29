@@ -159,6 +159,25 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`,
 });
 headerObserver.observe(header);
+
+//*REVEALING ELEMENTS TO SCROLL (sections)
+const allSections = document.querySelectorAll('.section');
+const revielSection = function (entries, observer) {
+  const [entry] = entries;
+
+  //?Guard clauses
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(revielSection, {
+  root: null,
+  threshold: 0.15,
+});
+allSections.forEach(function (seciton) {
+  sectionObserver.observe(seciton);
+  seciton.classList.add('section--hidden');
+});
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
