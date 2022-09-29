@@ -127,8 +127,8 @@ const nav = document.querySelector('.nav');
 // });
 //?Better solution
 //Passing 'arguments' into handler
-// nav.addEventListener('mouseover', navOpacity.bind(0.5));
-// nav.addEventListener('mouseout', navOpacity.bind(1));
+nav.addEventListener('mouseover', navOpacity.bind(0.5));
+nav.addEventListener('mouseout', navOpacity.bind(1));
 // //*STICKY NAV BAR
 // //Scroll event
 // //? not good solution
@@ -176,7 +176,7 @@ const sectionObserver = new IntersectionObserver(revielSection, {
 });
 allSections.forEach(function (seciton) {
   sectionObserver.observe(seciton);
-  // seciton.classList.add('section--hidden');
+  seciton.classList.add('section--hidden');
 });
 //* LAZY LODING IMG GREATE FOR PERFORMANCE
 // img[data-src] select img with propertie data src
@@ -574,14 +574,14 @@ slider();
 //*LIFECYCLE DOM EVENTS
 //? DOM content loaded
 //it's wait for html and js is loaded. Dont wait for extrenal sources
-document.addEventListener('DOMContentLoaded', function (e) {
-  //parse : process of analyzing a string of symbols,
-  console.log('HTML parsed nad DOM tree built', e);
-});
-//?Load
-window.addEventListener('load', function (e) {
-  console.log('Page are fully loaded', e);
-});
+// document.addEventListener('DOMContentLoaded', function (e) {
+//   //parse : process of analyzing a string of symbols,
+//   console.log('HTML parsed nad DOM tree built', e);
+// });
+// //?Load
+// window.addEventListener('load', function (e) {
+//   console.log('Page are fully loaded', e);
+// });
 //?beforeunload
 // use toask users if they wanna leave page on tab close
 // window.addEventListener('beforeunload', function (e) {
