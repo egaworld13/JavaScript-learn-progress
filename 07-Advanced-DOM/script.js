@@ -176,7 +176,7 @@ const sectionObserver = new IntersectionObserver(revielSection, {
 });
 allSections.forEach(function (seciton) {
   sectionObserver.observe(seciton);
-  seciton.classList.add('section--hidden');
+  // seciton.classList.add('section--hidden');
 });
 //* LAZY LODING IMG GREATE FOR PERFORMANCE
 // img[data-src] select img with propertie data src
@@ -198,6 +198,94 @@ const imgObserver = new IntersectionObserver(loadImg, {
   rootMargin: '200px', // img is loaded 200px before viewport reach img.
 });
 imgTarget.forEach(img => imgObserver.observe(img));
+//*SLIDER COMPONENT
+const slider = function () {
+  let currSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const slider = document.querySelector('.slider');
+  const btnLeft = document.querySelector('.slider__btn--left');
+  const btnRight = document.querySelector('.slider__btn--right');
+  const maxSlide = slides.length;
+  const dotContainer = document.querySelector('.dots');
+
+  //*FUNCTIONS
+  const init = function () {
+    gotToSlide(0);
+    ceateDots();
+    activateDot(0);
+  };
+
+  const gotToSlide = function (slide) {
+    slides.forEach(
+      (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+    );
+  };
+
+  //?NEXT SLIDE
+  const nextSlide = function () {
+    if (currSlide === maxSlide - 1) {
+      currSlide = 0;
+    } else {
+      currSlide++;
+    }
+    gotToSlide(currSlide);
+    activateDot(currSlide);
+  };
+
+  //?PREV SLIDE
+  const prevSlide = function () {
+    if (currSlide === 0) {
+      currSlide = maxSlide - 1;
+    } else {
+      currSlide--;
+    }
+
+    gotToSlide(currSlide);
+    activateDot(currSlide);
+  };
+  //?Adding dots
+  const ceateDots = function () {
+    slides.forEach(function (_, i) {
+      dotContainer.insertAdjacentHTML(
+        'beforeend',
+        `<button class="dots__dot" data-slide="${i}"></button>`
+      );
+    });
+  };
+
+  //?Activating dots by adding style
+  const activateDot = function (slide) {
+    document
+      .querySelectorAll('.dots__dot')
+      .forEach(dot => dot.classList.remove('dots__dot--active'));
+    document
+      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .classList.add('dots__dot--active');
+  };
+  init();
+
+  //*EVENT HANDLER
+
+  //?Btn slider
+  btnRight.addEventListener('click', nextSlide);
+  btnLeft.addEventListener('click', prevSlide);
+
+  //?Arrow key slider
+  document.addEventListener('keydown', function (e) {
+    e.key === 'ArrowLeft' && prevSlide();
+    e.key === 'ArrowRight' && nextSlide();
+  });
+
+  //?Dots
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      gotToSlide(slide);
+      activateDot(slide);
+    }
+  });
+};
+slider();
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
@@ -406,3 +494,80 @@ imgTarget.forEach(img => imgObserver.observe(img));
 // //this func is activated when reach threshold propertie(0.1=10%) top and bot of viewport!is its root=null.
 // const observer = new IntersectionObserver(obsCallback, obsOptions);
 // observer.observe(section1);
+//* SLIDER
+// let currSlide = 0;
+// const slides = document.querySelectorAll('.slide');
+// const slider = document.querySelector('.slider');
+// const btnLeft = document.querySelector('.slider__btn--left');
+// const btnRight = document.querySelector('.slider__btn--right');
+// const maxSlide = slides.length;
+
+// const gotToSlide = function (slide) {
+//   //Each slide x position is translated depends on index.
+//   slides.forEach(
+//     (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+//   );
+// };
+// gotToSlide(0);
+// //?Next slide
+// const nextSlide = function () {
+//   if (currSlide === maxSlide - 1) {
+//     currSlide = 0;
+//   } else {
+//     currSlide++;
+//   }
+//   gotToSlide(currSlide);
+//   activateDot(currSlide);
+// };
+// //?Previos slide
+// const prevSlide = function () {
+//   if (currSlide === 0) {
+//     currSlide = maxSlide - 1;
+//   } else {
+//     currSlide--;
+//   }
+
+//   gotToSlide(currSlide);
+//   activateDot(currSlide);
+// };
+// btnRight.addEventListener('click', nextSlide);
+// btnLeft.addEventListener('click', prevSlide);
+// //?Arrow key slider
+// //Search for presed key
+// //ArrowRight
+// //ArrowLeft
+// document.addEventListener('keydown', function (e) {
+//   if (e.key === 'ArrowLeft') prevSlide();
+//   //short circuting
+//   e.key === 'ArrowRight' && nextSlide();
+// });
+
+// //? DOTS
+// const dotContainer = document.querySelector('.dots');
+// const ceateDots = function () {
+//   slides.forEach(function (_, i) {
+//     dotContainer.insertAdjacentHTML(
+//       'beforeend',
+//       `<button class="dots__dot" data-slide="${i}"></button>`
+//     );
+//   });
+// };
+// ceateDots();
+// dotContainer.addEventListener('click', function (e) {
+//   if (e.target.classList.contains('dots__dot'));
+//   //destructuring
+//   const { slide } = e.target.dataset;
+//   gotToSlide(slide);
+//   activateDot(slide);
+// });
+// const activateDot = function (slide) {
+//   //Remove active claas form dots
+//   document
+//     .querySelectorAll('.dots__dot')
+//     .forEach(dot => dot.classList.remove('.dots__dot--active'));
+//   //Select current slide
+//   document
+//     .querySelector(`.dots__dot[data-slide="${slide}"]`)
+//     .classList.add('dots__dot--active');
+// };
+// activateDot(0);
