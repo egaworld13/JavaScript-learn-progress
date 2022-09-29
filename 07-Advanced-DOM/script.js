@@ -178,6 +178,26 @@ allSections.forEach(function (seciton) {
   sectionObserver.observe(seciton);
   seciton.classList.add('section--hidden');
 });
+//* LAZY LODING IMG GREATE FOR PERFORMANCE
+// img[data-src] select img with propertie data src
+const imgTarget = document.querySelectorAll('img[data-src]');
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  //?Replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  //? remove blur only when large img is loaded. important for slow internet.
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+  observer.unobserve(entry.target);
+};
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px', // img is loaded 200px before viewport reach img.
+});
+imgTarget.forEach(img => imgObserver.observe(img));
 ////*LECTURES
 //*SMOOTHLY SCROLL
 //? Old method
