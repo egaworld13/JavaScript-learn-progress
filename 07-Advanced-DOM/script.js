@@ -571,3 +571,21 @@ slider();
 //     .classList.add('dots__dot--active');
 // };
 // activateDot(0);
+//*LIFECYCLE DOM EVENTS
+//? DOM content loaded
+//it's wait for html and js is loaded. Dont wait for extrenal sources
+document.addEventListener('DOMContentLoaded', function (e) {
+  //parse : process of analyzing a string of symbols,
+  console.log('HTML parsed nad DOM tree built', e);
+});
+//?Load
+window.addEventListener('load', function (e) {
+  console.log('Page are fully loaded', e);
+});
+//?beforeunload
+// use toask users if they wanna leave page on tab close
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
