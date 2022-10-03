@@ -557,57 +557,86 @@ if(markBMI<johnBMI){
 // calcAvarageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 //#4 Coding Challange Arrays methods
-const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] },
-];
-//*1 recommendedFood
-dogs.forEach(function (dog) {
-  dog.recFood = (dog.weight ** 0.75 * 28).toFixed(0);
-});
-console.log(dogs);
-//*2 find Sarah Dog
-//?my solution
-const sarahDog = dogs.find(dog => {
-  if (dog.owners.includes('Sarah') && dog.curFood > dog.recFood * 1.1) {
-    console.log(`${dog.owners}'s dog is eating to much!`);
-  } else if (dog.owners.includes('Sarah') && dog.curFood < dog.recFood * 0.9) {
-    console.log('Dog need more food!');
-  }
-});
-
-//*3 owners arrays to much
-const eatToMuch = dogs
-  .filter(dog => dog.curFood > dog.recFood * 1.1)
-  .map(own => own.owners)
-  .flat();
-console.log(eatToMuch);
-//*3 to little
-const eatToLittle = dogs
-  .filter(dog => dog.curFood < dog.recFood * 0.9)
-  .flatMap(own => own.owners);
-console.log(eatToLittle);
-//*4
-console.log(`${eatToMuch.join(' and ').concat("'s")} dog's eat to much`);
-console.log(`${eatToLittle.join(' and ').concat("'s")} dog's eat to little!`);
-//*5
-console.log(dogs.some(dog => dog.curFood === dog.recFood));
-//*6
-const okayEatCalc = dog =>
-  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
-console.log(dogs.some(okayEatCalc));
-//*7
-const okayEating = dogs.filter(okayEatCalc);
-console.log(...okayEating);
-//*8 SORTING
-//?My solution
-// const sortbyRecFood = dogs.slice().sort((a, b) => {
-//   if (a.recFood > b.recFood) return 1;
-//   if (a.recFood < b.recFood) return -1;
+// const dogs = [
+//   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+//   { weight: 8, curFood: 200, owners: ['Matilda'] },
+//   { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+//   { weight: 32, curFood: 340, owners: ['Michael'] },
+// ];
+// //*1 recommendedFood
+// dogs.forEach(function (dog) {
+//   dog.recFood = (dog.weight ** 0.75 * 28).toFixed(0);
 // });
-//?Shorter ver.
-const sortbyRecFood = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+// console.log(dogs);
+// //*2 find Sarah Dog
+// //?my solution
+// const sarahDog = dogs.find(dog => {
+//   if (dog.owners.includes('Sarah') && dog.curFood > dog.recFood * 1.1) {
+//     console.log(`${dog.owners}'s dog is eating to much!`);
+//   } else if (dog.owners.includes('Sarah') && dog.curFood < dog.recFood * 0.9) {
+//     console.log('Dog need more food!');
+//   }
+// });
 
-console.log(...sortbyRecFood);
+// //*3 owners arrays to much
+// const eatToMuch = dogs
+//   .filter(dog => dog.curFood > dog.recFood * 1.1)
+//   .map(own => own.owners)
+//   .flat();
+// console.log(eatToMuch);
+// //*3 to little
+// const eatToLittle = dogs
+//   .filter(dog => dog.curFood < dog.recFood * 0.9)
+//   .flatMap(own => own.owners);
+// console.log(eatToLittle);
+// //*4
+// console.log(`${eatToMuch.join(' and ').concat("'s")} dog's eat to much`);
+// console.log(`${eatToLittle.join(' and ').concat("'s")} dog's eat to little!`);
+// //*5
+// console.log(dogs.some(dog => dog.curFood === dog.recFood));
+// //*6
+// const okayEatCalc = dog =>
+//   dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+// console.log(dogs.some(okayEatCalc));
+// //*7
+// const okayEating = dogs.filter(okayEatCalc);
+// console.log(...okayEating);
+// //*8 SORTING
+// //?My solution
+// // const sortbyRecFood = dogs.slice().sort((a, b) => {
+// //   if (a.recFood > b.recFood) return 1;
+// //   if (a.recFood < b.recFood) return -1;
+// // });
+// //?Shorter ver.
+// const sortbyRecFood = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+
+// console.log(...sortbyRecFood);
+//* ###OOP###
+//*1st Coding Challenge
+//Car obj
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+//new obj prototype from Car
+const car1 = new Car('BMW', 120);
+const car2 = new Car('Mercedes', 95);
+//Increase speed
+Car.prototype.accelerate = function () {
+  console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
+};
+//Breake
+Car.prototype.breake = function () {
+  // this.speed=+5; <- another way;
+  console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
+};
+
+console.log(car1, car2);
+car1.accelerate();
+car1.accelerate();
+car1.accelerate();
+car1.breake();
+car1.breake();
+car1.breake();
+// car2.accelerate();
+// car2.breake();
