@@ -614,29 +614,29 @@ if(markBMI<johnBMI){
 //* ###OOP###
 //*1st Coding Challenge
 //Car obj
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
-//new obj prototype from Car
-const car1 = new Car('BMW', 120);
-const car2 = new Car('Mercedes', 95);
-//Increase speed
-Car.prototype.accelerate = function () {
-  console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
-};
-//Breake
-Car.prototype.breake = function () {
-  // this.speed=+5; <- another way;
-  console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+// //new obj prototype from Car
+// const car1 = new Car('BMW', 120);
+// const car2 = new Car('Mercedes', 95);
+// //Increase speed
+// Car.prototype.accelerate = function () {
+//   console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
+// };
+// //Breake
+// Car.prototype.breake = function () {
+//   // this.speed=+5; <- another way;
+//   console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
+// };
 
-console.log(car1, car2);
-car1.accelerate();
-car1.accelerate();
-car1.accelerate();
-car1.breake();
-car1.breake();
-car1.breake();
+// console.log(car1, car2);
+// car1.accelerate();
+// car1.accelerate();
+// car1.accelerate();
+// car1.breake();
+// car1.breake();
+// car1.breake();
 // car2.accelerate();
 // car2.breake();
