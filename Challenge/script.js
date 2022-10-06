@@ -640,3 +640,39 @@ if(markBMI<johnBMI){
 // car1.breake();
 // car2.accelerate();
 // car2.breake();
+//*2nd Challenge
+//Car obj
+// class CarCl {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
+//   //? Methods
+//   //Accelerate
+//   accelerate() {
+//     console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
+//   }
+
+//   //Breake
+//   brake() {
+//     console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
+//   }
+//   //GET
+//   get speedUS() {
+//     return this.speed / 1.6;
+//   }
+//   //SET;
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//   }
+// }
+// const ford = new CarCl('Ford', 120);
+// console.log(ford);
+// ford.accelerate();
+// ford.accelerate();
+// ford.brake();
+// ford.accelerate();
+// console.log(ford.speedUS);
+// ford.speedUS = ford.speed;
+// console.log(ford.speedUS);
+// ford.accelerate();
