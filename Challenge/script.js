@@ -612,7 +612,7 @@ if(markBMI<johnBMI){
 
 // console.log(...sortbyRecFood);
 //* ###OOP###
-//*1st Coding Challenge
+//*#1st Coding Challenge
 //Car obj
 // const Car = function (make, speed) {
 //   this.make = make;
@@ -640,7 +640,7 @@ if(markBMI<johnBMI){
 // car1.breake();
 // car2.accelerate();
 // car2.breake();
-//*2nd Challenge
+//*#2nd Challenge
 //Car obj
 // class CarCl {
 //   constructor(make, speed) {
@@ -648,15 +648,15 @@ if(markBMI<johnBMI){
 //     this.speed = speed;
 //   }
 //   //? Methods
-//   //Accelerate
+//Accelerate
 //   accelerate() {
 //     console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
-//   }
+//   };
 
 //   //Breake
 //   brake() {
 //     console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
-//   }
+//   };
 //   //GET
 //   get speedUS() {
 //     return this.speed / 1.6;
@@ -676,3 +676,86 @@ if(markBMI<johnBMI){
 // ford.speedUS = ford.speed;
 // console.log(ford.speedUS);
 // ford.accelerate();
+//*#3rd Coding Challenge
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
+// Car.prototype.accelerate = function () {
+//   console.log(`${this.make} going at ${(this.speed += 10)} km/h`);
+// };
+
+// //Breake
+// Car.prototype.brake = function () {
+//   console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
+// };
+
+// //Create electric child class
+// const EV = function (make, speed, charge) {
+//   Car.call(this, make, speed);
+//   this.charge = charge;
+// };
+// EV.prototype = Object.create(Car.prototype);
+// //Methods
+// EV.prototype.chargeBattery = function (chargeTo) {
+//   this.charge = chargeTo;
+// };
+// //? Polymorphism  paradigma is used!
+// EV.prototype.accelerate = function () {
+//   console.log(
+//     `${
+//       this.make
+//     } going at ${(this.speed += 20)} km/h with a charge ${(this.charge -= 1)}%`
+//   );
+// };
+// //Create car
+// const tesla = new EV('Tesla', 120, 23);
+// console.log(tesla);
+// tesla.accelerate();
+// tesla.accelerate();
+// tesla.chargeBattery(50);
+// tesla.accelerate();
+// tesla.accelerate();
+// tesla.accelerate();
+// tesla.brake();
+//* #4th Coding Challenge
+//? EXPERIMENT WITH CLASSES
+// //Car obj
+// class CarCl {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
+//   //? Methods
+
+//   //Breake
+//   brake() {
+//     console.log(`${this.make} going at ${(this.speed -= 5)} km/h`);
+//     return this;
+//   }
+// }
+
+// class EVCl extends CarCl {
+//   #charge;
+//   constructor(make, speed, charge) {
+//     super(make, speed);
+//     this.#charge = charge;
+//   }
+//   //   Accelerate;
+//   accelerate() {
+//     console.log(
+//       `${
+//         this.make
+//       } going at ${(this.speed += 10)} km/h with a charge ${(this.#charge -= 1)}%`
+//     );
+//     return this;
+//   }
+//   chargeBattery(chargeTo) {
+//     this.#charge = chargeTo;
+//     return this;
+//   }
+// }
+// const tesla = new EVCl('Tesla', 120, 40);
+// console.log(tesla);
+// tesla.accelerate().accelerate().brake().chargeBattery(50);
+// console.log(tesla);
