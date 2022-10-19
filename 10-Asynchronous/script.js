@@ -143,44 +143,129 @@ const countriesContainer = document.querySelector('.countries');
 //     });
 // };
 //////??? Simplified the code
+// const renderCountry = function (data, className = '') {
+//   const lang = Object.values(data.languages);
+//   let curr = [];
+//   Object.values(data.currencies).forEach(el => curr.push(el.name));
+//   const html = `
+// <article class="country ${className}">
+// <img class="country__img" src="${data.flags.png}" />
+// <div class="country__data">
+//   <h3 class="country__name">${data.name.common}</h3>
+//   <h4 class="country__region">${data.region}</h4>
+//   <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(
+//     1
+//   )} m people</p>
+//   <p class="country__row"><span>🗣️</span>${lang.join(', ')}</p>
+//   <p class="country__row"><span>💰</span>${curr.join(', ')}</p>
+// </div>
+// </article>`;
+
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+//   // countriesContainer.style.opacity = 1;
+// };
+
+// const renderError = function (msg) {
+//   countriesContainer.insertAdjacentText('beforeend', msg);
+//   countriesContainer.style.opacity = 1;
+// };
+
+// const getJSON = function (url, errorMsg = 'Something went wrong') {
+//   fetch(url).then(response => {
+//     if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+//     response.json();
+//   });
+// };
+// const getContryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(response => {
+//       if (!response.ok) throw new Error(`Country not found ${response.status}`);
+//       response.json();
+//     })
+//     .then(data => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders?.[0];
+//       if (!neighbour) return;
+
+//       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     })
+//     .then(response => {
+//       if (!response.ok) throw new Error(`Country not found ${response.status}`);
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0], 'neighbour'))
+//     .catch(err => {
+//       //! Catching error, the best solution
+//       renderError(`Something went wrong 📢 ${err.message}`);
+//       //* Finally method is called everytime
+//       console.error(`${err} 📢`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+
+//*HELPER FUNCTION
+
+//? helper function
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+    return response.json();
+  });
+};
+
 const renderCountry = function (data, className = '') {
   const lang = Object.values(data.languages);
   let curr = [];
   Object.values(data.currencies).forEach(el => curr.push(el.name));
   const html = `
-<article class="country ${className}">
-<img class="country__img" src="${data.flags.png}" />
-<div class="country__data">
-  <h3 class="country__name">${data.name.common}</h3>
-  <h4 class="country__region">${data.region}</h4>
-  <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(
-    1
-  )} m people</p>
-  <p class="country__row"><span>🗣️</span>${lang.join(', ')}</p>
-  <p class="country__row"><span>💰</span>${curr.join(', ')}</p>
-</div>
-</article>`;
+  <article class="country ${className}">
+  <img class="country__img" src="${data.flags.png}" />
+  <div class="country__data">
+    <h3 class="country__name">${data.name.common}</h3>
+    <h4 class="country__region">${data.region}</h4>
+    <p class="country__row"><span>👫</span>${(
+      +data.population / 1000000
+    ).toFixed(1)} m people</p>
+    <p class="country__row"><span>🗣️</span>${lang.join(', ')}</p>
+    <p class="country__row"><span>💰</span>${curr.join(', ')}</p>
+  </div>
+  </article>`;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
+  // countriesContainer.style.opacity = 1;
+};
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
   countriesContainer.style.opacity = 1;
 };
 
-const getContryData = country => {
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+const getCountryData = function (country) {
+  getJSON(`https://restcountries.com/v3.1/name/${country}`, 'Country not found')
     .then(data => {
-      console.log(data);
       renderCountry(data[0]);
       const neighbour = data[0].borders?.[0];
-      if (!neighbour) return;
+      if (!neighbour) throw new Error('No neighbour found');
 
-      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+      return getJSON(
+        `https://restcountries.com/v3.1/alpha/${neighbour}`,
+        'Country not found'
+      );
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      renderCountry(data[0], 'neighbour');
+    .then(data => renderCountry(data[0], 'neighbour'))
+    .catch(err => {
+      //! Catching error, the best solution
+      renderError(`Something went wrong 📢 ${err.message}`);
+      //* Finally method is called everytime
+      console.error(`${err} 📢`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
-
-getContryData('australia');
+//* HANDLING ERRORS
+btn.addEventListener('click', function () {
+  getCountryData('latvia');
+});
