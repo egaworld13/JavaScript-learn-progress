@@ -2,6 +2,11 @@
 //? named export
 console.log('Exporting module');
 
+//Blocking code (blocking execution)
+// console.log('Start fetching users');
+
+// await fetch('https://jsonplaceholder.typicode.com/posts');
+// console.log('Finish fetching!');
 const shoppingCart = 10;
 export const cart = [];
 
